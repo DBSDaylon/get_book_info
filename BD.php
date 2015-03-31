@@ -47,7 +47,7 @@ if (isset($bookDepot)) {
 			}
 		}
 	}
-	file_put_contents("BookDepot.json", json_encode($content, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | FILE_APPEND));
+	file_put_contents("BookDepot.json", json_encode($content, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
 }
 # What I need to print in the JSON
 	#$smallImg, $bigImg
