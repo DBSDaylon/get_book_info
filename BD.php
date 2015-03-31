@@ -6,21 +6,21 @@ if (isset($bookDepot)) {
 	foreach ($bookDepot->find('h3') as $h3) {
 		foreach ($h3->find('a') as $aElement) {
 			$bookLink = $aElement->href;
-			$content[0] = $bookLink;
+			$content[$bookLink] = '';
 		}
 		// echo 'Book Link: '; #needs to be json identifier
 		// echo $bookLink.'<br>'; #needs to be json info
 		$indBook = file_get_html($bookLink);
 		foreach ($indBook->find('h1') as $bookTitle) {
 			$bookTitle = $bookTitle->plaintext;
-			$content[1] = $bookTitle;
+			$content[$bookLink]["title"] = $bookTitle;
 		// echo 'Book Title: '; #needs to be json identifier
 		// echo $bookTitle.', '; #needs to be json info
 		}
 		foreach ($indBook->find('img') as $bigImg) {
 			if ($bookTitle == $bigImg->alt) {
 				$bigImg = $bigImg->src;
-				$content[2] = $bigImg;
+				$content[$bookLink]["image"] = $bigImg;
 				// echo 'Big Image: '; #needs to be json identifier
 				// echo $bigImg.', '; #needs to be json info
 			}
@@ -30,7 +30,7 @@ if (isset($bookDepot)) {
 			if ($ulClass == "biblio") {
 				foreach ($ul->find('li') as $li) {
 					$plainLi = $li->plaintext;
-					$content[3] = $plainLi;
+					$content[$bookLink]["plainli"] = $plainLi;
 					// echo $plainLi.', ';
 				}
 			}
@@ -40,7 +40,7 @@ if (isset($bookDepot)) {
 			if ($divClass == "longDescription") {
 				foreach ($pDiv->find('p') as $para) {
 					$para = $para->plaintext;
-					$content[4] = $para;
+					$content[$bookLink]["para"] = $para;
 					// echo 'Long Description: '; #needs to be json identifier
 					// echo $para; #needs to be json info
 				}
